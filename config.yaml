@@ -1,0 +1,7 @@
+name: "IR Remote Control"
+description: "Arduino infrared remote control for Yandex Station integration"
+version: "1.0.0"
+slug: "ir_remote_control"
+init: false
+arch:
+  - armv7
