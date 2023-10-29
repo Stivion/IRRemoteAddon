@@ -1,0 +1,7 @@
+{
+    "domain": "ir_remote_control",
+    "name": "IR Remote Control",
+    "codeowners": ["@Stivion"],
+    "documentation": "https://github.com/Stivion/IRRemoteAddon/",
+    "version": "0.1.0"
+}

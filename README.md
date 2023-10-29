@@ -3,9 +3,9 @@
 ## Description
 This is a custom Home Assistant addon for controlling ESP8266 based infrared remote control via Yandex Station.
 
-Planned functionality:
-* Catch events from [YandexStation Home Assistant component](https://github.com/AlexxIT/YandexStation)
-* Handle IR related events and send them to ESP8266
+Functionality:
+* Handle IR related events and send them to ESP8266 via HTTP
+* ESP8266 receives commands and handles them using [custom-made IR Remote Control project](https://github.com/Stivion/IRRemoteControl)
 
 ## Prerequisites
 * [Cross-platform Powershell](https://github.com/PowerShell/PowerShell) `pwsh` for building and publishing an addon

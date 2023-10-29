@@ -9,7 +9,7 @@ $rootDir = Get-Location
 $outputDir = "$rootDir\output"
 
 function CreateAddonStructure() {
-    Write-Host "Creating addon struccure" -ForegroundColor $textColor
+    Write-Host "Creating addon structure" -ForegroundColor $textColor
     if (Test-Path $outputDir) {
         Remove-Item $outputDir -Force -Recurse
     }
