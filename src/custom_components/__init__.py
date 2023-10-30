@@ -2,6 +2,8 @@ from homeassistant.core import HomeAssistant, ServiceCall, callback
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
+import time
+
 
 DOMAIN = "ir_remote_control"
 
@@ -16,23 +18,24 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         data = dict(call.data)
 
         amount = int(data.pop('amount', 1))
-        hass.states.async_set("ir_remote_control.amount", amount)
         for _ in range(amount):
             await session.post('http://192.168.50.91/soundbar/volume-up', proxy=None, ssl=False)
+            time.sleep(0.5)
 
 
     @callback
     async def volume_down(call: ServiceCall) -> None:
         data = dict(call.data)
 
-        amount = data.pop('amount', 1)
+        amount = int(data.pop('amount', 1))
         for _ in range(amount):
             await session.post('http://192.168.50.91/soundbar/volume-down', proxy=None, ssl=False)
+            time.sleep(0.5)
 
 
     @callback
     async def toggle_input(call: ServiceCall) -> None:
-        await session.post('http://192.168.50.91/soundbar/toggle_input', proxy=None, ssl=False)
+        await session.post('http://192.168.50.91/soundbar/toggle-input', proxy=None, ssl=False)
 
 
     # AC controls
