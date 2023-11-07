@@ -22,7 +22,12 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
     # Soundbar controls
     @callback
-    async def volume_up(call: ServiceCall) -> None:
+    async def soundbar_power(call: ServiceCall) -> None:
+        await session.post(f'{host}/soundbar/power')
+
+
+    @callback
+    async def soundbar_volume_up(call: ServiceCall) -> None:
         data = dict(call.data)
 
         amount = int(data.pop('amount', 1))
@@ -32,7 +37,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
     @callback
-    async def volume_down(call: ServiceCall) -> None:
+    async def soundbar_volume_down(call: ServiceCall) -> None:
         data = dict(call.data)
 
         amount = int(data.pop('amount', 1))
@@ -42,13 +47,13 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
     @callback
-    async def toggle_input(call: ServiceCall) -> None:
+    async def soundbar_toggle_input(call: ServiceCall) -> None:
         await session.post(f'{host}/soundbar/toggle-input', proxy=None, ssl=False)
 
 
     # AC controls
     @callback
-    async def power_on(call: ServiceCall) -> None:
+    async def ac_power_on(call: ServiceCall) -> None:
         if ac_state['power'] == True:
             return
         
@@ -58,7 +63,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
     @callback
-    async def power_off(call: ServiceCall) -> None:
+    async def ac_power_off(call: ServiceCall) -> None:
         if ac_state['power'] == False:
             return
         
@@ -68,7 +73,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
     @callback
-    async def set_mode(call: ServiceCall) -> None:
+    async def ac_set_mode(call: ServiceCall) -> None:
         data = dict(call.data)
         mode = int(data.pop('mode', 0))
         if mode < 0 or mode > 4:
@@ -82,7 +87,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
     @callback
-    async def set_temp(call: ServiceCall) -> None:
+    async def ac_set_temp(call: ServiceCall) -> None:
         data = dict(call.data)
         tempC = int(data.pop('tempC', 24))
         if tempC < 16 or tempC > 30:
@@ -95,14 +100,15 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         await session.post(f'{host}/ac/state', json=ac_state, proxy=None, ssl=False)
 
     
-    hass.services.async_register(DOMAIN, 'volume_up', volume_up)
-    hass.services.async_register(DOMAIN, 'volume_down', volume_down)
-    hass.services.async_register(DOMAIN, 'toggle_input', toggle_input)
+    hass.services.async_register(DOMAIN, 'soundbar_power', soundbar_power)
+    hass.services.async_register(DOMAIN, 'soundbar_volume_up', soundbar_volume_up)
+    hass.services.async_register(DOMAIN, 'soundbar_volume_down', soundbar_volume_down)
+    hass.services.async_register(DOMAIN, 'soundbar_toggle_input', soundbar_toggle_input)
 
-    hass.services.async_register(DOMAIN, 'power_on', power_on)
-    hass.services.async_register(DOMAIN, 'power_off', power_off)
-    hass.services.async_register(DOMAIN, 'set_mode', set_mode)
-    hass.services.async_register(DOMAIN, 'set_temp', set_temp)
+    hass.services.async_register(DOMAIN, 'ac_power_on', ac_power_on)
+    hass.services.async_register(DOMAIN, 'ac_power_off', ac_power_off)
+    hass.services.async_register(DOMAIN, 'ac_set_mode', ac_set_mode)
+    hass.services.async_register(DOMAIN, 'ac_set_temp', ac_set_temp)
 
     return True
 
