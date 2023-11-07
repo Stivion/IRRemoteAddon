@@ -8,18 +8,19 @@ Reboot your Home Assistant device after any changes to `async_setup` function
 Soundbar remote integrations allows to control soundbar
 
 Available commands:
-* `volume_up`
-* `volume_down`
-* `toggle_input`
+* `soundbar_power`
+* `soundbar_volume_up`
+* `soundbar_volume_down`
+* `soundbar_toggle_input`
 
 `volume_up` and `volume_down` commands accepts integer amount by how much increase/decrease volume
 
 # AC remote
 AC remote integrations allows to control AC
-* `power_on`
-* `power_off`
-* `set_mode`
-* `set_temp`
+* `ac_power_on`
+* `ac_power_off`
+* `ac_set_mode`
+* `ac_set_temp`
 
 `set_mode` and `set_temp` commands accepts integer data for mode/temp respectively.
 
