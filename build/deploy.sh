@@ -10,8 +10,6 @@ set -e
 
 rm $archiveName.zip
 
-# <config dir>/custom_components/hello_service/__init__.py
-
 RebuildAddon() {
     printf "${Green}Rebuilding addon${NoColor}\n"
     ha addons rebuild "local_${archiveName}" || (printf "${Green}Addon is not installed. Installing${NoColor}\n" && ha addons install "local_${archiveName}")
@@ -30,8 +28,19 @@ CopyIntegrationService() {
     rm -rf src/custom_components
 }
 
+CopyCustomCards() {
+    printf "${Green}Copying custom cards${NoColor}\n"
+    rm -f ~/config/www/ac-card.js
+    if ! test -d ~/config/www; then
+        mkdir ~/config/www
+    fi
+    mv src/custom_cards/ac-card.js ~/config/www/ac-card.js
+    rm -rf src/custom_cards
+}
+
 RebuildAddon
 StartAddon
 CopyIntegrationService
+CopyCustomCards
 
 printf "${Green}Deploy completed successfully${NoColor}\n"
