@@ -31,10 +31,12 @@ CopyIntegrationService() {
 CopyCustomCards() {
     printf "${Green}Copying custom cards${NoColor}\n"
     rm -f ~/config/www/ac-card.js
+    rm -f ~/config/www/soundbar-card.js
     if ! test -d ~/config/www; then
         mkdir ~/config/www
     fi
     mv src/custom_cards/ac-card.js ~/config/www/ac-card.js
+    mv src/custom_cards/soundbar-card.js ~/config/www/soundbar-card.js
     rm -rf src/custom_cards
 }
 
